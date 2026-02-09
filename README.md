@@ -1,3 +1,90 @@
+# DDoS Attack Detection Using Machine Learning
+
+## 📌 Project Overview
+This project focuses on detecting Distributed Denial of Service (DDoS) attacks using machine learning techniques. By analyzing network traffic features, the system classifies traffic as either **BENIGN** or **DDoS**. A Random Forest classifier is trained on the CIC-IDS dataset to achieve high detection accuracy.
+
+The goal of this project is to demonstrate how data preprocessing, feature engineering, and supervised learning can be applied to cybersecurity problems.
+
+---
+
+## 📂 Dataset Description
+- **Dataset Name:** Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv  
+- **Source:** CIC-IDS (Canadian Institute for Cybersecurity)
+- **Records:** 225,745
+- **Features:** 79 network traffic features
+- **Target Column:** `Label`  
+  - `BENIGN`
+  - `DDoS`
+
+### Dataset Characteristics
+- No missing values initially
+- Presence of infinite values in some flow features
+- Class imbalance:
+  - DDoS: 128,027
+  - BENIGN: 97,718
+
+---
+
+## 🧹 Data Preprocessing Steps
+1. **Column Name Cleaning**
+   - Removed leading/trailing spaces from column names
+
+2. **Removal of Constant Features**
+   - Columns with only one unique value were dropped
+
+3. **Handling Infinite Values**
+   - Replaced `inf` and `-inf` with NaN
+   - Removed rows containing NaN values
+
+4. **Feature & Label Separation**
+   - Features (X): All columns except `Label`
+   - Target (y): `Label`
+
+5. **Label Encoding**
+   - BENIGN → 0
+   - DDoS → 1
+
+6. **Feature Scaling**
+   - Applied `StandardScaler` to normalize numerical features
+
+---
+
+## 🧪 Train-Test Split
+- **Training Set:** 80%
+- **Testing Set:** 20%
+- **Random State:** 42
+- **Stratified Split:** Ensures class balance
+
+---
+
+## 🤖 Machine Learning Model
+### Model Used
+- **Algorithm:** Random Forest Classifier
+- **Reason for Choice:**
+  - Handles high-dimensional data well
+  - Robust to noise
+  - Reduces overfitting through ensemble learning
+
+### Hyperparameters
+- `n_estimators = 200`
+- `random_state = 42`
+- `n_jobs = -1`
+
+---
+
+## 📊 Model Evaluation Metrics
+The model was evaluated using multiple performance metrics:
+
+| Metric | Score |
+|------|------|
+| Accuracy | 0.9999 |
+| Precision | 1.0000 |
+| Recall | 0.9999 |
+| F1-score | 0.9999 |
+
+### Confusion Matrix
+[[19543 1]
+[ 1 25604]]
 
 ### ROC-AUC
 - ROC curve plotted
